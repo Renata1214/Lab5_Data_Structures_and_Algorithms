@@ -34,26 +34,22 @@ string translation (string infix1){
             if(charac=='*' || charac == '/' || charac == '%'){
                 bool check=true;
                 while (check){
-                    cout << "while loop" << endl;
+                    //cout << "while loop" << endl;
                     if(mystack.empty()){
                         mystack.push(charac);
                         check = false;
                     }
                     else if (mystack.top()=='/'|| mystack.top()=='%'|| mystack.top()=='*'){
-                        cout << "It is entering here" << endl;
+                        //cout << "It is entering here" << endl;
                         char tostring = mystack.top(); 
                         string charString(1, tostring); 
                         line.append(charString);
-                        cout << line << "okay" << endl;
+                        //cout << line << "okay" << endl;
                         mystack.pop();
                         }
                     else {
-                        cout << "Enter" << endl;
+                        //cout << "Enter" << endl;
                         mystack.push(charac);
-
-                        if ()
-
-
                         check = false;
                     }
                 }
@@ -80,6 +76,10 @@ string translation (string infix1){
                     
         }
         iterator ++;
+    }
+    while (!mystack.empty()) {
+        line += mystack.top();
+        mystack.pop();
     }
     return line;
 }

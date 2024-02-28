@@ -22,9 +22,11 @@ int evaluate_postfix (string expression){
         if (isdigit(c)){
             number = c - '0';
             mystack.push(number);
+            cout << "Enters stack" << endl;
             //sizeString++;
         }
         else if (c=='*'||c=='/'||c=='+'||c=='-'||c=='%'){
+             cout << "Enters stack loop" << endl;
             operand1=mystack.top();
             mystack.pop();
             operand2=mystack.top();
@@ -37,7 +39,8 @@ int evaluate_postfix (string expression){
                     break;
                 case '/':
                     number= operand2/operand1;
-                    mystack.top() = number;
+                    mystack.push(number);
+                    cout << "enters /" << number << endl;
                     break;
                 case '%':
                     number=operand2%operand1;
@@ -48,7 +51,10 @@ int evaluate_postfix (string expression){
                     mystack.push(number);
                     break;
                 case '-':
+                cout << "enter -" << endl;
+                cout << operand2 << " " << operand1 << endl;
                     number=operand2-operand1;
+                    cout << "the number " << number ;
                     mystack.push(number);
                     break;
                 default:
