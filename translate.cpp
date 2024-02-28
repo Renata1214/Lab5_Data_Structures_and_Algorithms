@@ -3,6 +3,7 @@
 #include <stack>
 #include <cctype>
 #include <string>
+#include "translate.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ term ::= number | term op2 number
 op2 ::= * | / | %
 */
 //Function to translate code infix into postfix
-string translation (string infix1){
+string translate::translation (string infix1){
 
     string line; //postfix line
     char charac;
@@ -41,7 +42,6 @@ string translation (string infix1){
                     }
                 }
             }
-
             if(charac=='+' || charac == '-'){
                 bool check2=true;
                     while (check2){
@@ -61,4 +61,13 @@ string translation (string infix1){
     return line;
 }
 
-void 
+void translate::translate_evaluate () {
+    string infix_expression;
+    cout << "Write down the infix expression" << endl;
+    while (getline(cin, infix_expression)){
+       int result= evaluate_postfix ( translation (infix_expression));
+        cout << "Your line was " << infix_expression<< endl;
+        cout << "Your result is " << result << endl;
+        cout << "Press end of character to stop inputting expressions" << endl;
+    }
+}

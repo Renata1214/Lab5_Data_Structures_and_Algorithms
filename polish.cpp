@@ -3,6 +3,7 @@
 #include <stack>
 #include <string>
 #include <cctype>
+#include <polish.h>
 
 using namespace std;
 
