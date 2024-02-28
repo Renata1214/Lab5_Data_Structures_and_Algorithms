@@ -86,18 +86,31 @@ string translation (string infix1){
 
 void translate_evaluate () {
     string infix_expression;
-    do
-    {
-        cout << "Write down the infix expression" << endl;
-        cin>>infix_expression;
-        //cout << "error" << endl;
-        string something = translation (infix_expression);
-        cout << something << endl;
-       // cout << "error" << endl;
-        //int result = evaluate_postfix(infix_expression);
-        int result= evaluate_postfix (something);
-        cout << "Your line was " << infix_expression<< endl;
-        cout << "Your result is " << result << endl;
-        cout << "Press end of character to stop inputting expressions" << endl;
-    }while(infix_expression!="stop");
+    cout << "Write down the infix expression" << endl;
+    while (cin >> infix_expression && infix_expression != "end") {
+        string postfix_expression = translation(infix_expression);
+        int result = evaluate_postfix(postfix_expression);
+
+        cout << "Your line was: " << infix_expression << endl;
+        cout << "Postfix expression is: " << postfix_expression << endl;
+        cout << "Your result is: " << result << endl;
+        cout << "Enter another infix expression or type 'end' to stop: ";
+    }
+
+    cout << "End of input. Exiting the loop." << endl;
+
+    // do
+    // {
+    //     cout << "Write down the infix expression" << endl;
+    //     cin>>infix_expression;
+    //     //cout << "error" << endl;
+    //     string something = translation (infix_expression);
+    //     //cout << something << endl;
+    //    // cout << "error" << endl;
+    //     //int result = evaluate_postfix(infix_expression);
+    //     int result= evaluate_postfix (something);
+    //     cout << "Your line was " << infix_expression<< endl;
+    //     cout << "Your result is " << result << endl;
+    //     cout << "Press end of character to stop inputting expressions" << endl;
+    // }while(infix_expression!=eof());
 }
