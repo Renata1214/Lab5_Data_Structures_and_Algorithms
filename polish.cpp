@@ -3,7 +3,7 @@
 #include <stack>
 #include <string>
 #include <cctype>
-#include <polish.h>
+#include "polish.h"
 
 using namespace std;
 
@@ -18,6 +18,7 @@ int evaluate_postfix (string expression){
 
     while (sizeString!= expression.size()){
         c=expression[sizeString];
+        //cout << "Alright" << endl;
         if (isdigit(c)){
             number = c - '0';
             mystack.push(number);
@@ -28,7 +29,7 @@ int evaluate_postfix (string expression){
             mystack.pop();
             operand2=mystack.top();
             mystack.pop();
-
+            //cout  << "recognized" << endl;
             switch (c) {
                 case '*' :
                     number= operand1*operand2;
