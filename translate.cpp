@@ -7,15 +7,6 @@
 
 using namespace std;
 
-/*Your program must be able to handle the following operations: +,-,*,/,%
- BNF (Backus–Naur form)1 of the infix expression grammar is:
-expr ::= term | expr op1 term
-op1 ::= + | -
-term ::= number | term op2 number
-op2 ::= * | / | %
-*/
-//Function to translate code infix into postfix
-
 string translation (string infix1){
 
     string line; //postfix line
@@ -26,29 +17,45 @@ string translation (string infix1){
 
     while (iterator!= infix1.size()){
        charac=infix1[iterator];
-
         if (isdigit(charac)){
-            line.append(1, charac);
+            line+=charac;
         }
         else {
-            if(charac=='*' || charac == '/' || charac == '%'){
+            if(charac=='(' || charac==')'){
+                if(charac=='('){
+                    mystack.push(charac);
+                }
+                else{
+                    while (mystack.top()!='(') {
+                    line += mystack.top();
+                     mystack.pop();
+                    }
+                    mystack.pop();   
+                }
+            }
+
+            if(charac=='^'){
                 bool check=true;
                 while (check){
-                    //cout << "while loop" << endl;
-                    if(mystack.empty()){
+                    if (!mystack.empty() && mystack.top()=='^'){
+                        line += mystack.top();
+                        mystack.pop();
+                    }
+                    else {
                         mystack.push(charac);
                         check = false;
                     }
-                    else if (mystack.top()=='/'|| mystack.top()=='%'|| mystack.top()=='*'){
-                        //cout << "It is entering here" << endl;
-                        char tostring = mystack.top(); 
-                        string charString(1, tostring); 
-                        line.append(charString);
-                        //cout << line << "okay" << endl;
+                }
+            }
+
+            if(charac=='*' || charac == '/' || charac == '%'){
+                bool check=true;
+                while (check){
+                    if (!mystack.empty()&&(mystack.top()=='/'|| mystack.top()=='%'|| mystack.top()=='*'|| mystack.top()=='^')){
+                        line += mystack.top();
                         mystack.pop();
                         }
                     else {
-                        //cout << "Enter" << endl;
                         mystack.push(charac);
                         check = false;
                     }
@@ -57,32 +64,27 @@ string translation (string infix1){
             if(charac=='+' || charac == '-'){
                 bool check2=true;
                     while (check2){
-                    if(mystack.empty()){
-                        mystack.push(charac);
-                        check2 = false;
-                    }
-                        else if (mystack.top()=='/'|| mystack.top()=='%'|| mystack.top()=='*'|| mystack.top()=='+'|| mystack.top()=='-'){
-                            char tostring = mystack.top(); 
-                            string charString(1, tostring); 
-                            line.append(charString);
+                    if (!mystack.empty()&&(mystack.top()=='/'|| mystack.top()=='%'|| mystack.top()=='*'|| mystack.top()=='+'|| mystack.top()=='-'|| mystack.top()=='^')){
+                             line += mystack.top();
                             mystack.pop();
-                            }
-                        else {
+                    }
+                    else {
                             mystack.push(charac);
                             check2 = false;
-                        }
                     }
-            }
-                    
+                    }
+            }          
         }
         iterator ++;
     }
+
     while (!mystack.empty()) {
         line += mystack.top();
         mystack.pop();
     }
     return line;
 }
+
 
 void translate_evaluate () {
     string infix_expression;
@@ -98,19 +100,4 @@ void translate_evaluate () {
     }
 
     cout << "End of input. Exiting the loop." << endl;
-
-    // do
-    // {
-    //     cout << "Write down the infix expression" << endl;
-    //     cin>>infix_expression;
-    //     //cout << "error" << endl;
-    //     string something = translation (infix_expression);
-    //     //cout << something << endl;
-    //    // cout << "error" << endl;
-    //     //int result = evaluate_postfix(infix_expression);
-    //     int result= evaluate_postfix (something);
-    //     cout << "Your line was " << infix_expression<< endl;
-    //     cout << "Your result is " << result << endl;
-    //     cout << "Press end of character to stop inputting expressions" << endl;
-    // }while(infix_expression!=eof());
 }
